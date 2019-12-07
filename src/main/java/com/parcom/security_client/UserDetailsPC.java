@@ -14,7 +14,10 @@ public class UserDetailsPC implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
     private final Long idGroup;
+    private final String token;
 
+
+    //for auth
     public UserDetailsPC(String username, String password, Long id, Collection<? extends GrantedAuthority> authorities, boolean enabled, Long idGroup) {
         this.username = username;
         this.password = password;
@@ -22,13 +25,16 @@ public class UserDetailsPC implements UserDetails {
         this.authorities = authorities;
         this.enabled = enabled;
         this.idGroup = idGroup;
+        this.token = null;
     }
 
-    public UserDetailsPC(String username, Long id, Collection<? extends GrantedAuthority> authorities, Long idGroup) {
+    //for self conteined
+    public UserDetailsPC(String username, Long id, Collection<? extends GrantedAuthority> authorities, Long idGroup, String token) {
         this.username = username;
         this.id = id;
         this.authorities = authorities;
         this.idGroup = idGroup;
+        this.token = token;
         this.password = null;
         this.enabled = true;
     }
@@ -85,5 +91,7 @@ public class UserDetailsPC implements UserDetails {
         return idGroup;
     }
 
-
+    public String getToken() {
+        return token;
+    }
 }

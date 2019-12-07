@@ -50,7 +50,7 @@ public class TokenValidate extends TokenUtils {
 
 		Collection<? extends GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get(JWT_AUTHORITIES));
 
-		return new UserDetailsPC(userName,id,authorities,idGroup);
+		return new UserDetailsPC(userName,id,authorities,idGroup, token);
 	}
 
 }
