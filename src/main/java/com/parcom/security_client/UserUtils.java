@@ -9,7 +9,11 @@ import java.util.function.Function;
 
 public class UserUtils {
 
-    private static Long getPrincipal(Function<UserDetailsPC,Long> getFromPrincipal) {
+    public static String ROLE_ADMIN= "ROLE_ADMIN";
+    public static String ROLE_MEMBER= "ROLE_MEMBER";
+    public static String ROLE_PARENT= "ROLE_PARENT";
+
+    private static UserDetailsPC getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             throw new AccessDeniedException("Access denied");
@@ -20,20 +24,24 @@ public class UserUtils {
         }
         else
         {
-            return getFromPrincipal.apply((UserDetailsPC)authentication.getPrincipal());
+            return (UserDetailsPC)authentication.getPrincipal();
         }
     }
 
 
     public static Long getIdUser() {
 
-        return getPrincipal(UserDetailsPC::getId);
+        return getPrincipal().getId();
     }
 
+    public static String getRole() {
+
+        return getPrincipal().getRole();
+    }
 
     public static Long getIdGroup() {
 
-        return getPrincipal(UserDetailsPC::getIdGroup);
+        return getPrincipal().getIdGroup();
 
     }
 

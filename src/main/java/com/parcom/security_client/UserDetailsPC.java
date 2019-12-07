@@ -42,6 +42,11 @@ public class UserDetailsPC implements UserDetails {
         return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
     }
 
+    public String getRole() {
+       return authorities.stream().map(Object::toString).findFirst().orElse("");
+    }
+
+
     public Long getId() {
         return id;
     }
