@@ -42,6 +42,12 @@ public class UserUtils {
         return getPrincipal().getRole();
     }
 
+    public static String getToken() {
+
+        return getPrincipal().getToken();
+    }
+
+
     public static Long getIdGroup() {
 
         return getPrincipal().getIdGroup();
