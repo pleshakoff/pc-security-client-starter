@@ -26,8 +26,6 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean imple
 
     private final MessageSource messageSource;
 
-    private static final String X_AUTH_TOKEN = "X-Auth-Token";
-    private static final String TOKEN = "token";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
@@ -67,11 +65,11 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean imple
 
     private String extractAuthTokenFromRequest(HttpServletRequest httpRequest) {
         /* Get token from header */
-        String authToken = httpRequest.getHeader(X_AUTH_TOKEN);
+        String authToken = httpRequest.getHeader(UserUtils.X_AUTH_TOKEN);
 
         /* If token not found get it from request parameter */
         if (Strings.isEmpty(authToken)) {
-            authToken = httpRequest.getParameter(TOKEN);
+            authToken = httpRequest.getParameter(UserUtils.TOKEN);
         }
         return (Strings.isNotEmpty(authToken)) ? authToken : null;
     }
