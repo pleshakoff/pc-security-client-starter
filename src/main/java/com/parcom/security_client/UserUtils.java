@@ -4,6 +4,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 
@@ -16,41 +17,41 @@ public class UserUtils {
     public static final String TOKEN = "token";
 
 
-    private static UserDetailsPC getPrincipal() {
+    private static Optional<UserDetailsPC> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
-            throw new AccessDeniedException("Access denied");
+            return Optional.empty();
         }
         Object principal = authentication.getPrincipal();
         if (principal instanceof String && principal.equals("anonymousUser")) {
-            throw new AccessDeniedException("Access denied");
+            return Optional.empty();
         }
         else
         {
-            return (UserDetailsPC)authentication.getPrincipal();
+            return  Optional.of((UserDetailsPC)authentication.getPrincipal());
         }
     }
 
 
     public static Long getIdUser() {
 
-        return getPrincipal().getId();
+        return getPrincipal().map(UserDetailsPC::getId).orElse(null);
     }
 
     public static String getRole() {
 
-        return getPrincipal().getRole();
+        return getPrincipal().map(UserDetailsPC::getRole).orElse(null);
     }
 
     public static String getToken() {
 
-        return getPrincipal().getToken();
+        return getPrincipal().map(UserDetailsPC::getToken).orElse(null);
     }
 
 
     public static Long getIdGroup() {
 
-        return getPrincipal().getIdGroup();
+        return getPrincipal().map(UserDetailsPC::getIdGroup).orElse(null);
 
     }
 
