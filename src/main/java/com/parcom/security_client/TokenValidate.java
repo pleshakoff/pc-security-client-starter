@@ -49,10 +49,7 @@ public class TokenValidate extends TokenUtils {
 		}
 
 		Long idStudent = claims.get(JWT_ID_STUDENT, Long.class);
-		if (idStudent == null) {
-			throw new SessionAuthenticationException("exception.token_invalid");
-		}
-
+	
 		Collection<? extends GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get(JWT_AUTHORITIES));
 
 		return new UserDetailsPC(userName,id,authorities,idGroup, idStudent,token);
