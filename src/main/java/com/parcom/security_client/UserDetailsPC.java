@@ -14,26 +14,29 @@ public class UserDetailsPC implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
     private final Long idGroup;
+    private final Long idStudent;
     private final String token;
 
 
     //for auth
-    public UserDetailsPC(String username, String password, Long id, Collection<? extends GrantedAuthority> authorities, boolean enabled, Long idGroup) {
+    public UserDetailsPC(String username, String password, Long id, Collection<? extends GrantedAuthority> authorities, boolean enabled, Long idGroup, Long idStudent) {
         this.username = username;
         this.password = password;
         this.id = id;
         this.authorities = authorities;
         this.enabled = enabled;
         this.idGroup = idGroup;
+        this.idStudent = idStudent;
         this.token = null;
     }
 
     //for self conteined
-    public UserDetailsPC(String username, Long id, Collection<? extends GrantedAuthority> authorities, Long idGroup, String token) {
+    public UserDetailsPC(String username, Long id, Collection<? extends GrantedAuthority> authorities, Long idGroup, Long idStudent, String token) {
         this.username = username;
         this.id = id;
         this.authorities = authorities;
         this.idGroup = idGroup;
+        this.idStudent = idStudent;
         this.token = token;
         this.password = null;
         this.enabled = true;
@@ -93,5 +96,9 @@ public class UserDetailsPC implements UserDetails {
 
     public String getToken() {
         return token;
+    }
+
+    public Long getIdStudent() {
+        return idStudent;
     }
 }

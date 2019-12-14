@@ -50,10 +50,11 @@ public class UserUtils {
 
 
     public static Long getIdGroup() {
-
         return getPrincipal().map(UserDetailsPC::getIdGroup).orElse(null);
-
     }
 
+    public static Long getIdStudent() {
+        return getPrincipal().map(UserDetailsPC::getIdStudent).orElse(null);
+    }
 
    }
