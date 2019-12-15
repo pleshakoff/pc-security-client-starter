@@ -12,7 +12,7 @@ public class ChecksumTest {
 
     @Test
     public void createChecksum() {
-        Checksum.createChecksum(ID);
+        System.out.println(Checksum.createChecksum(ID));
     }
 
     @Test(expected = RuntimeException.class)
