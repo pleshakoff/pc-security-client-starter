@@ -43,7 +43,7 @@ public class Checksum extends TokenUtils {
 	}
 
 
-	static void validateCheckSum(String checksum,Long id)	{
+	static public void validateCheckSum(String checksum,Long id)	{
 
 		DefaultClaims claims;
 		try {
