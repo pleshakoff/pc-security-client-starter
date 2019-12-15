@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class Checksum extends TokenUtils {
 
 	private static final String KEY =  "bF$HTVG4t\"BB\"JLY/W>)uX!";
-	private static final String CHECKSUM = "checksum";
+	public static final String CHECKSUM = "checksum";
 	private static final String CHECKSUM_ERROR = "You can't call this method directly. Use Slassrom service for registration";
 	private static final String IDENTIFIER = "IDENTIFIER";
 

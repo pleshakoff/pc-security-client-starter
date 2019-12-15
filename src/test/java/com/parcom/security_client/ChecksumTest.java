@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 public class ChecksumTest {
 
 
+
     private static final long ID = 12345L;
 
     @Test
