@@ -22,7 +22,7 @@ public class Checksum extends TokenUtils {
 
 	private static final String KEY =  "bF$HTVG4t\"BB\"JLY/W>)uX!";
 	public static final String CHECKSUM = "checksum";
-	private static final String CHECKSUM_ERROR = "access.wrong_check_sum";
+	private static final String CHECKSUM_ERROR = "You can't call this method directly";
 	private static final String IDENTIFIER = "IDENTIFIER";
 
 	public static String createChecksum(@NotNull Long id) {
