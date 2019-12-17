@@ -21,31 +21,31 @@ public class TokenValidate extends TokenUtils {
 			claims = (DefaultClaims) Jwts.parser().setSigningKey(MAGIC_KEY).parse(token).getBody();
 		}
 		catch (ExpiredJwtException ex) {
-			throw new SessionAuthenticationException("exception.token_expired_date_error");
+			throw new SessionAuthenticationException("security.token_expired_date_error");
 		}
 		catch (Exception ex) {
-			throw new SessionAuthenticationException("exception.token_corrupted");
+			throw new SessionAuthenticationException("security.token_invalid");
 		}
 		Date expiredDate = claims.getExpiration();
 		if (expiredDate == null) {
-			throw new SessionAuthenticationException("exception.token_invalid");
+			throw new SessionAuthenticationException("security.token_invalid");
 		}
 		if (!expiredDate.after(new Date())) {
-			throw new SessionAuthenticationException("exception.token_expired_date_error");
+			throw new SessionAuthenticationException("security.token_expired_date_error");
 		}
 		String name = claims.get(JWT_USER, String.class);
 		if (name == null) {
-			throw new SessionAuthenticationException("exception.token_invalid");
+			throw new SessionAuthenticationException("security.token_invalid");
 		}
 
 		String userName = claims.getSubject();
 		Long id = claims.get(JWT_ID_USER, Long.class);
 		if (id == null) {
-			throw new SessionAuthenticationException("exception.token_invalid");
+			throw new SessionAuthenticationException("security.token_invalid");
 		}
 		Long idGroup = claims.get(JWT_ID_GROUP, Long.class);
 		if (idGroup == null) {
-			throw new SessionAuthenticationException("exception.token_invalid");
+			throw new SessionAuthenticationException("security.token_invalid");
 		}
 
 		Long idStudent = claims.get(JWT_ID_STUDENT, Long.class);

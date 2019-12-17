@@ -49,7 +49,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean imple
 
     private void handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         ExceptionResource exceptionResource = getExceptionResource(request,e, e.getMessage());
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getOutputStream().write(exceptionResource.toJson().getBytes(StandardCharsets.UTF_8));
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
