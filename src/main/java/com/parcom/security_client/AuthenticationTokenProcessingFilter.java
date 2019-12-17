@@ -4,6 +4,7 @@ package com.parcom.security_client;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +49,8 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean imple
     }
 
     private void handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
-        ExceptionResource exceptionResource = getExceptionResource(request,e, e.getMessage());
+        String message = messageSource.getMessage(e.getMessage(), null, e.getMessage(), LocaleContextHolder.getLocale());
+        ExceptionResource exceptionResource = getExceptionResource(request,e, message);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getOutputStream().write(exceptionResource.toJson().getBytes(StandardCharsets.UTF_8));
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
