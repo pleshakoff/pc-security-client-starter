@@ -1,9 +1,8 @@
 package com.parcom.security_client;
 
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ChecksumTest {
 
@@ -16,9 +15,9 @@ public class ChecksumTest {
         System.out.println(Checksum.createChecksum(ID));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void createChecksumNull() {
-        Checksum.createChecksum(null);
+        Assertions.assertThrows(RuntimeException.class,() ->  Checksum.createChecksum(null));
     }
 
 
@@ -30,17 +29,14 @@ public class ChecksumTest {
     }
 
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void validateCheckSumWrong() {
-        Checksum.validateCheckSum(Checksum.createChecksum(ID),123L);
-
+        Assertions.assertThrows(RuntimeException.class,() ->  Checksum.validateCheckSum(Checksum.createChecksum(ID),123L));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void validateCheckSumNull() {
-        Checksum.validateCheckSum(Checksum.createChecksum(ID),null);
-
-    }
+        Assertions.assertThrows(RuntimeException.class,() ->   Checksum.validateCheckSum(Checksum.createChecksum(ID),null)); }
 
 
 }
