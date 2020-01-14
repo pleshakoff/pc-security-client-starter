@@ -19,7 +19,7 @@ public class TokenCreate extends TokenUtils {
 	private static final long DEFAULT_TOKEN_DURATION = 30L;
 
 
-	static String createToken(UserDetails userDetails)
+	public static String createToken(UserDetails userDetails)
 	{
 		return createToken(userDetails,now -> new Date(now.getTime() + TimeUnit.MINUTES.toMillis(DEFAULT_TOKEN_DURATION)));
 	}
