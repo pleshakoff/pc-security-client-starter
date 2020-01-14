@@ -15,7 +15,7 @@ public class UserDetailsPC implements UserDetails {
     private final boolean enabled;
     private final Long idGroup;
     private final Long idStudent;
-    private final String token;
+    private String token;
 
 
     //for auth
@@ -96,6 +96,10 @@ public class UserDetailsPC implements UserDetails {
 
     public String getToken() {
         return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Long getIdStudent() {

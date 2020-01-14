@@ -1,5 +1,6 @@
 package com.parcom.security_client;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
@@ -11,17 +12,26 @@ import java.util.Collection;
 import java.util.Date;
 
 
-public class TokenValidate extends TokenUtils {
+class TokenValidate extends TokenUtils {
+
 
 	static UserDetailsPC  validateToken(String token)
 	{
+		return validateToken(token,false);
+	}
 
-		DefaultClaims claims;
+	static UserDetailsPC  validateToken(String token,boolean ignoreExpired)
+	{
+
+		Claims claims;
 		try {
-			claims = (DefaultClaims) Jwts.parser().setSigningKey(MAGIC_KEY).parse(token).getBody();
+			claims = (Claims) Jwts.parser().setSigningKey(MAGIC_KEY).parse(token).getBody();
 		}
 		catch (ExpiredJwtException ex) {
-			throw new SessionAuthenticationException("security.token_expired_date_error");
+			if (ignoreExpired)
+				claims = ex.getClaims();
+			else
+		     	throw new SessionAuthenticationException("security.token_expired_date_error");
 		}
 		catch (Exception ex) {
 			throw new SessionAuthenticationException("security.token_invalid");
@@ -30,7 +40,7 @@ public class TokenValidate extends TokenUtils {
 		if (expiredDate == null) {
 			throw new SessionAuthenticationException("security.token_invalid");
 		}
-		if (!expiredDate.after(new Date())) {
+		if (expiredDate.before(new Date())&&!ignoreExpired) {
 			throw new SessionAuthenticationException("security.token_expired_date_error");
 		}
 		String name = claims.get(JWT_USER, String.class);
