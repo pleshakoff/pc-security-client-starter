@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import static com.parcom.security_client.TokenCreate.createToken;
 
-public class AsyncUtils {
+public class AsyncUserUtils {
 
     static public void authByToken(String token){
         UserDetailsPC userDetails = TokenValidate.validateToken(token,true);
