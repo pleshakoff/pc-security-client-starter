@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.parcom.security_client.SecurityClientConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.parcom.security_client.SecurityClientConfiguration,\
+  com.parcom.security_client.ParcomWebSecurityConfigurerAdapter

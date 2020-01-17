@@ -4,14 +4,21 @@ import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointR
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
+@Configuration
+@Import(SecurityClientConfiguration.class)
+@ConditionalOnMissingBean(ParcomWebSecurityConfigurerAdapter.class)
+public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+    
     private final  UnauthorizedEntryPoint unauthorizedEntryPoint;
 
     private final AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter;
