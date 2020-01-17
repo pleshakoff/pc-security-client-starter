@@ -47,7 +47,7 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String[] permitListArray = (String[]) permitAllList.toArray();
+        String[] permitListArray = permitAllList.toArray(new String[0]);
         http.
                 authorizeRequests((requests) -> {
                     requests.antMatchers(permitListArray).permitAll();
