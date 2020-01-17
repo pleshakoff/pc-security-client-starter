@@ -18,10 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Import(SecurityClientConfiguration.class)
 @ConditionalOnMissingBean(ParcomWebSecurityConfigurerAdapter.class)
 public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
-    
-    private final  UnauthorizedEntryPoint unauthorizedEntryPoint;
 
-    private final AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter;
+    protected final  UnauthorizedEntryPoint unauthorizedEntryPoint;
+
+    protected final AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter;
 
     public ParcomWebSecurityConfigurerAdapter(UnauthorizedEntryPoint unauthorizedEntryPoint, AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter) {
         this.unauthorizedEntryPoint = unauthorizedEntryPoint;
