@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.security.PermitAll;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,12 +23,17 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Autowired
     private MessageSource messageSource;
-    protected List<String> permitAllList = Arrays.asList(
-            "/webjars/springfox-swagger-ui/**",
-            "/swagger-ui.html/**",
-            "/swagger-resources/**",
-            "/v2/api-docs",
-            "/actuator/**");
+
+    protected List<String> permitAllList;
+
+    public ParcomWebSecurityConfigurerAdapter() {
+        this.permitAllList =   new ArrayList<>();
+        permitAllList.add("/webjars/springfox-swagger-ui/**");
+        permitAllList.add("/swagger-ui.html/**");
+        permitAllList.add("/swagger-resources/**");
+        permitAllList.add("/v2/api-docs");
+        permitAllList.add("/actuator/**");
+    }
 
     @Bean
     AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter() {
