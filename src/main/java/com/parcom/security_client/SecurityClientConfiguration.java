@@ -29,7 +29,6 @@ public class SecurityClientConfiguration {
         this.messageSource = messageSource;
     }
 
-
     @Bean
     AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter()
     {
