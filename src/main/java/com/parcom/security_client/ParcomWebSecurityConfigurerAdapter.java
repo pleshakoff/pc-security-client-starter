@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.security.PermitAll;
+import java.util.Arrays;
+import java.util.List;
+
 
 @Configuration
 @ConditionalOnMissingBean(ParcomWebSecurityConfigurerAdapter.class)
@@ -18,11 +22,16 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Autowired
     private MessageSource messageSource;
+    protected List<String> permitAllList = Arrays.asList(
+            "/webjars/springfox-swagger-ui/**",
+            "/swagger-ui.html/**",
+            "/swagger-resources/**",
+            "/v2/api-docs",
+            "/actuator/**");
 
     @Bean
-    AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter()
-    {
-        return   new AuthenticationTokenProcessingFilter(messageSource);
+    AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter() {
+        return new AuthenticationTokenProcessingFilter(messageSource);
     }
 
     @Bean
@@ -32,26 +41,18 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        setAuthorizeRequests(http);
+        String[] permitListArray = (String[]) permitAllList.toArray();
+        http.
+                authorizeRequests((requests) -> {
+                    requests.antMatchers(permitListArray).permitAll();
+                    requests.anyRequest().authenticated();
+                });
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable();
         http.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
         http.addFilterBefore(authenticationTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    protected void setAuthorizeRequests(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests((requests) -> {
-                    requests.antMatchers(
-                            "/webjars/springfox-swagger-ui/**",
-                            "/swagger-ui.html/**",
-                            "/swagger-resources/**",
-                            "/v2/api-docs",
-                            "/actuator/**").
-                            permitAll();
-                    requests.anyRequest().authenticated();
-                });
-    }
 
 
 }
