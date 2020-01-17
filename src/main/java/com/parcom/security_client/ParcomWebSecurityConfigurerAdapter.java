@@ -22,7 +22,7 @@ import java.util.List;
 public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MessageSource messageSource;
+    protected MessageSource messageSource;
 
     protected List<String> permitAllList;
 
