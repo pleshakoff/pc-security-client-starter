@@ -32,6 +32,14 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        setAuthorizeRequests(http);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable();
+        http.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
+        http.addFilterBefore(authenticationTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    protected void setAuthorizeRequests(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests((requests) -> {
                     requests.antMatchers(
@@ -43,10 +51,6 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
                             permitAll();
                     requests.anyRequest().authenticated();
                 });
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.csrf().disable();
-        http.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
-        http.addFilterBefore(authenticationTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 
