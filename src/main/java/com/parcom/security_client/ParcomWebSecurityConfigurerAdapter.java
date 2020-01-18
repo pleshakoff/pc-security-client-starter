@@ -2,6 +2,7 @@ package com.parcom.security_client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,14 @@ import java.util.List;
 
 @Configuration
 @ConditionalOnMissingBean(ParcomWebSecurityConfigurerAdapter.class)
+@EnableConfigurationProperties(SecurityProps.class)
 public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected MessageSource messageSource;
+
+    @Autowired
+    SecurityProps securityProps;
 
     protected List<String> permitAllList;
 
@@ -33,6 +38,8 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
         permitAllList.add("/swagger-resources/**");
         permitAllList.add("/v2/api-docs");
         permitAllList.add("/actuator/**");
+
+        permitAllList.addAll(securityProps.getPermitted());
     }
 
     @Bean
