@@ -38,9 +38,9 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
         permitAllList.add("/swagger-resources/**");
         permitAllList.add("/v2/api-docs");
         permitAllList.add("/actuator/**");
-
-        permitAllList.addAll(securityProps.getPermitted());
     }
+
+
 
     @Bean
     AuthenticationTokenProcessingFilter authenticationTokenProcessingFilter() {
@@ -54,6 +54,7 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        permitAllList.addAll(securityProps.getPermitted());
         String[] permitListArray = permitAllList.toArray(new String[0]);
         http.
                 authorizeRequests((requests) -> {
