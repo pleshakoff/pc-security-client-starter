@@ -29,7 +29,7 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Autowired
     SecurityProps securityProps;
 
-    protected List<String> permitAllList;
+    private List<String> permitAllList;
 
     public ParcomWebSecurityConfigurerAdapter() {
         this.permitAllList =   new ArrayList<>();
@@ -39,7 +39,6 @@ public class ParcomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
         permitAllList.add("/v2/api-docs");
         permitAllList.add("/actuator/**");
     }
-
 
 
     @Bean
